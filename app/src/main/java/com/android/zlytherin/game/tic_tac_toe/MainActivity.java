@@ -1,11 +1,15 @@
 package com.android.zlytherin.game.tic_tac_toe;
 
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     int varButton7 = 2;
     int varButton8 = 2;
     int varButton9 = 2;
+    Dialog myDialog;
+    TextView dialogTxt;
+    Button playAgain, exit;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView viewForButton7 = (ImageView) findViewById(R.id.idButton7);
         ImageView viewForButton8 = (ImageView) findViewById(R.id.idButton8);
         ImageView viewForButton9 = (ImageView) findViewById(R.id.idButton9);
+        myDialog = new Dialog(this);
 
         viewForButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (varButton2 == 2) {
             varButton2 = 0;
             viewForButton2.setImageResource(R.drawable.o);
-            viewForButton2.animate().rotation(360).setDuration(2000);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -542,20 +549,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setWinner(int winner) {
+        myDialog.setContentView(R.layout.match_over);
+        dialogTxt = (TextView) myDialog.findViewById(R.id.txt_declare);
+        playAgain = (Button) myDialog.findViewById(R.id.button_again);
+        exit = (Button) myDialog.findViewById(R.id.button_exit);
+        myDialog.show();
         if (winner == 0) {
-            actionBar.setTitle("O wins!");
+            dialogTxt.setText("O wins!");
             isGameRunning = false;
         } else if (winner == 1) {
             if (player == 2) {
-                actionBar.setTitle( "X wins!");
+                dialogTxt.setText("X wins!");
             } else {
-                actionBar.setTitle( "You Lose!");
+                dialogTxt.setText("You lose!");
             }
             isGameRunning = false;
         } else {
-            getSupportActionBar().setTitle( "Match Draw!");
+            dialogTxt.setText("Match draw!");
             isGameRunning = false;
         }
+        playAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.this.finish();
+                myDialog.dismiss();
+            }
+        });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory( Intent.CATEGORY_HOME );
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+                finish();
+                myDialog.dismiss();
+            }
+        });
     }
 
     public void computerTurn() {
