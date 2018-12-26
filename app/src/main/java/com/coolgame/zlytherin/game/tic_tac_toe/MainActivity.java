@@ -1,58 +1,94 @@
-package com.android.zlytherin.game.tic_tac_toe;
+package com.coolgame.zlytherin.game.tic_tac_toe;
 
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActionBar actionBar;
     boolean isGameRunning = true;
-    int phase = 1;
-    int player;
-    int turn = 0;
+    Handler handler;
     ArrayList<Integer> userTurn = new ArrayList<>();
-    int userTurnCount = 0;
-    int varButton1 = 2;
-    int varButton2 = 2;
-    int varButton3 = 2;
-    int varButton4 = 2;
-    int varButton5 = 2;
-    int varButton6 = 2;
-    int varButton7 = 2;
-    int varButton8 = 2;
-    int varButton9 = 2;
-    Dialog myDialog;
-    TextView dialogTxt;
-    Button playAgain, exit;
+    int varButton1 = 2, varButton2 = 2, varButton3 = 2, varButton4 = 2, varButton5 = 2,
+            varButton6 = 2, varButton7 = 2, varButton8 = 2, varButton9 = 2, phase = 1,
+            player, turn = 0, userTurnCount = 0;
+    Dialog myDialog, exitDialog;
+    TextView dialogTxt, head, exitDialogTxt;
+    Button playAgain, exit, exitDialogExit, exitDialogAgain;
+    ImageView viewForButton1, viewForButton2, viewForButton3, viewForButton4, viewForButton5,
+            viewForButton6, viewForButton7, viewForButton8, viewForButton9, backImage;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView((int) R.layout.activity_main);
-        this.player = getIntent().getExtras().getInt("MODE_TYPE");
-        this.actionBar = getSupportActionBar();
+        player = getIntent().getExtras().getInt("MODE_TYPE");
+        handler = new Handler();
 
-        ImageView viewForButton1 = (ImageView) findViewById(R.id.idButton1);
-        ImageView viewForButton2 = (ImageView) findViewById(R.id.idButton2);
-        ImageView viewForButton3 = (ImageView) findViewById(R.id.idButton3);
-        ImageView viewForButton4 = (ImageView) findViewById(R.id.idButton4);
-        ImageView viewForButton5 = (ImageView) findViewById(R.id.idButton5);
-        ImageView viewForButton6 = (ImageView) findViewById(R.id.idButton6);
-        ImageView viewForButton7 = (ImageView) findViewById(R.id.idButton7);
-        ImageView viewForButton8 = (ImageView) findViewById(R.id.idButton8);
-        ImageView viewForButton9 = (ImageView) findViewById(R.id.idButton9);
+        backImage = (ImageView) findViewById(R.id.back_image);
+        exitDialog = new Dialog(this);
+        exitDialog.setContentView(R.layout.match_over);
+        exitDialogTxt = exitDialog.findViewById(R.id.txt_declare);
+        exitDialogAgain = exitDialog.findViewById(R.id.button_again);
+        exitDialogExit = exitDialog.findViewById(R.id.button_exit);
+        exitDialogTxt.setText("Are you sure?");
+        exitDialogAgain.setText("Continue");
+        exitDialogExit.setText("Exit game");
+
+        viewForButton1 = (ImageView) findViewById(R.id.idButton1);
+        viewForButton2 = (ImageView) findViewById(R.id.idButton2);
+        viewForButton3 = (ImageView) findViewById(R.id.idButton3);
+        viewForButton4 = (ImageView) findViewById(R.id.idButton4);
+        viewForButton5 = (ImageView) findViewById(R.id.idButton5);
+        viewForButton6 = (ImageView) findViewById(R.id.idButton6);
+        viewForButton7 = (ImageView) findViewById(R.id.idButton7);
+        viewForButton8 = (ImageView) findViewById(R.id.idButton8);
+        viewForButton9 = (ImageView) findViewById(R.id.idButton9);
+
+        viewForButton1.animate().alpha(0).translationX(130);
+        viewForButton2.animate().alpha(0).translationX(130);
+        viewForButton3.animate().alpha(0).translationX(130);
+        viewForButton4.animate().alpha(0).translationX(130);
+        viewForButton5.animate().alpha(0).translationX(130);
+        viewForButton6.animate().alpha(0).translationX(130);
+        viewForButton7.animate().alpha(0).translationX(130);
+        viewForButton8.animate().alpha(0).translationX(130);
+        viewForButton9.animate().alpha(0).translationX(130);
+
+        head = (TextView) findViewById(R.id.head);
         myDialog = new Dialog(this);
 
-        viewForButton1.setOnClickListener(new View.OnClickListener() {
+        backImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exitDialog.show();
+                exitDialogAgain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        exitDialog.dismiss();
+                    }
+                });
+
+                exitDialogExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                        exitDialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        ((LinearLayout) findViewById(R.id.llButton1)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -67,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton2.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -82,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton3.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton3)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -97,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton4.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton4)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -112,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton5.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton5)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -127,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton6.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton6)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -142,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton7.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton7)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -157,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton8.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton8)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -172,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewForButton9.setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout) findViewById(R.id.llButton9)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isGameRunning) {
@@ -189,28 +225,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button1() {
-        ImageView viewForButton9 = (ImageView) findViewById(R.id.idButton9);
-        ImageView viewForButton7 = (ImageView) findViewById(R.id.idButton7);
-        ImageView viewForButton3 = (ImageView) findViewById(R.id.idButton3);
-        ImageView viewForButton1 = (ImageView) findViewById(R.id.idButton1);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton7.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton7.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton7 = 1;
             } else if (phase == 3) {
                 viewForButton9.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton9.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton9 = 1;
             } else if (phase == 4) {
                 viewForButton3.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton3.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton3 = 1;
             } else {
-                viewForButton1.setImageResource(R.drawable.x);
-                varButton1 = 1;
+                if (varButton1 == 2) {
+                    viewForButton1.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton1.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton1.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton1 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton1 == 2) {
             varButton1 = 0;
             viewForButton1.setImageResource(R.drawable.o);
+            viewForButton1.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -227,28 +292,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button2() {
-        ImageView viewForButton8 = (ImageView) findViewById(R.id.idButton8);
-        ImageView viewForButton6 = (ImageView) findViewById(R.id.idButton6);
-        ImageView viewForButton4 = (ImageView) findViewById(R.id.idButton4);
-        ImageView viewForButton2 = (ImageView) findViewById(R.id.idButton2);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton4.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton4.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton4 = 1;
             } else if (phase == 3) {
                 viewForButton8.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton8.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton8 = 1;
             } else if (phase == 4) {
                 viewForButton6.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton6.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton6 = 1;
             } else {
-                viewForButton2.setImageResource(R.drawable.x);
-                varButton2 = 1;
+                if (varButton2 == 2) {
+                    viewForButton2.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton2.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton2.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton2 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton2 == 2) {
             varButton2 = 0;
             viewForButton2.setImageResource(R.drawable.o);
+            viewForButton2.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -265,28 +359,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button3() {
-        ImageView viewForButton9 = (ImageView) findViewById(R.id.idButton9);
-        ImageView viewForButton7 = (ImageView) findViewById(R.id.idButton7);
-        ImageView viewForButton1 = (ImageView) findViewById(R.id.idButton1);
-        ImageView viewForButton3 = (ImageView) findViewById(R.id.idButton3);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton1.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton1.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton1 = 1;
             } else if (phase == 3) {
                 viewForButton7.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton7.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton7 = 1;
             } else if (phase == 4) {
                 viewForButton9.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton9.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton4 = 1;
             } else {
-                viewForButton3.setImageResource(R.drawable.x);
-                varButton3 = 1;
+                if (varButton3 == 2) {
+                    viewForButton3.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton3.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton3.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton3 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton3 == 2) {
             varButton3 = 0;
             viewForButton3.setImageResource(R.drawable.o);
+            viewForButton3.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -303,28 +426,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button4() {
-        ImageView viewForButton8 = (ImageView) findViewById(R.id.idButton8);
-        ImageView viewForButton6 = (ImageView) findViewById(R.id.idButton6);
-        ImageView viewForButton2 = (ImageView) findViewById(R.id.idButton2);
-        ImageView viewForButton4 = (ImageView) findViewById(R.id.idButton4);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton8.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton8.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton8 = 1;
             } else if (phase == 3) {
                 viewForButton6.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton6.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton6 = 1;
             } else if (phase == 4) {
                 viewForButton2.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton2.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton2 = 1;
             } else {
-                viewForButton4.setImageResource(R.drawable.x);
-                varButton4 = 1;
+                if (varButton4 == 2) {
+                    viewForButton4.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton4.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton4.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton4 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton4 == 2) {
             varButton4 = 0;
             viewForButton4.setImageResource(R.drawable.o);
+            viewForButton4.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -341,17 +493,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button5() {
-        ImageView viewForButton5 = (ImageView) findViewById(R.id.idButton5);
         if (varButton5 == 2) {
             if (turn == 0) {
                 varButton5 = 0;
                 viewForButton5.setImageResource(R.drawable.o);
+                viewForButton5.animate().alpha(1).translationX(0).rotation(360);
                 turn = 1;
                 userTurnCount++;
                 userTurn.add(5);
             } else {
                 varButton5 = 1;
                 viewForButton5.setImageResource(R.drawable.x);
+                if (player == 1) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            viewForButton5.animate().alpha(1).translationX(0).rotation(360);
+                        }
+                    }, 500);
+                } else {
+                    viewForButton5.animate().alpha(1).translationX(0).rotation(360);
+                }
                 turn = 0;
             }
         }
@@ -359,28 +521,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button6() {
-        ImageView viewForButton8 = (ImageView) findViewById(R.id.idButton8);
-        ImageView viewForButton4 = (ImageView) findViewById(R.id.idButton4);
-        ImageView viewForButton2 = (ImageView) findViewById(R.id.idButton2);
-        ImageView viewForButton6 = (ImageView) findViewById(R.id.idButton6);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton2.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton2.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton2 = 1;
             } else if (phase == 3) {
                 viewForButton4.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton4.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton4 = 1;
             } else if (phase == 4) {
                 viewForButton8.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton8.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton8 = 1;
             } else {
-                viewForButton6.setImageResource(R.drawable.x);
-                varButton6 = 1;
+                if (varButton6 == 2) {
+                    viewForButton6.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton6.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton6.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton6 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton6 == 2) {
             varButton6 = 0;
             viewForButton6.setImageResource(R.drawable.o);
+            viewForButton6.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -397,28 +588,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button7() {
-        ImageView viewForButton9 = (ImageView) findViewById(R.id.idButton9);
-        ImageView viewForButton3 = (ImageView) findViewById(R.id.idButton3);
-        ImageView viewForButton1 = (ImageView) findViewById(R.id.idButton1);
-        ImageView viewForButton7 = (ImageView) findViewById(R.id.idButton7);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton9.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton9.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton9 = 1;
             } else if (phase == 3) {
                 viewForButton3.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton3.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton3 = 1;
             } else if (phase == 4) {
                 viewForButton1.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton1.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton1 = 1;
             } else {
-                viewForButton7.setImageResource(R.drawable.x);
-                varButton7 = 1;
+                if (varButton7 == 2) {
+                    viewForButton7.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton7.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton7.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton7 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton7 == 2) {
             varButton7 = 0;
             viewForButton7.setImageResource(R.drawable.o);
+            viewForButton7.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -435,28 +655,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button8() {
-        ImageView viewForButton6 = (ImageView) findViewById(R.id.idButton6);
-        ImageView viewForButton4 = (ImageView) findViewById(R.id.idButton4);
-        ImageView viewForButton2 = (ImageView) findViewById(R.id.idButton2);
-        ImageView viewForButton8 = (ImageView) findViewById(R.id.idButton8);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton6.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton6.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton6 = 1;
             } else if (phase == 3) {
                 viewForButton2.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton2.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton2 = 1;
             } else if (phase == 4) {
                 viewForButton4.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton4.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton4 = 1;
             } else {
-                viewForButton8.setImageResource(R.drawable.x);
-                varButton8 = 1;
+                if (varButton8 == 2) {
+                    viewForButton8.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton8.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton8.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton8 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton8 == 2) {
             varButton8 = 0;
             viewForButton8.setImageResource(R.drawable.o);
+            viewForButton8.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -473,28 +722,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button9() {
-        ImageView viewForButton7 = (ImageView) findViewById(R.id.idButton7);
-        ImageView viewForButton3 = (ImageView) findViewById(R.id.idButton3);
-        ImageView viewForButton1 = (ImageView) findViewById(R.id.idButton1);
-        ImageView viewForButton9 = (ImageView) findViewById(R.id.idButton9);
         if (turn != 0) {
+            turn = 0;
             if (phase == 2) {
                 viewForButton3.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton3.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton3 = 1;
             } else if (phase == 3) {
                 viewForButton1.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton1.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton1 = 1;
             } else if (phase == 4) {
                 viewForButton7.setImageResource(R.drawable.x);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewForButton7.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                }, 500);
                 varButton7 = 1;
             } else {
-                viewForButton9.setImageResource(R.drawable.x);
-                varButton9 = 1;
+                if (varButton9 == 2) {
+                    viewForButton9.setImageResource(R.drawable.x);
+                    if (player == 1) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewForButton9.animate().alpha(1).translationX(0).rotation(360);
+                            }
+                        }, 500);
+                    } else {
+                        viewForButton9.animate().alpha(1).translationX(0).rotation(360);
+                    }
+                    varButton9 = 1;
+                } else {
+                    turn = 1;
+                }
             }
-            turn = 0;
         } else if (varButton9 == 2) {
             varButton9 = 0;
             viewForButton9.setImageResource(R.drawable.o);
+            viewForButton9.animate().alpha(1).translationX(0).rotation(360);
             turn = 1;
             userTurnCount++;
             if (phase == 2) {
@@ -553,7 +831,21 @@ public class MainActivity extends AppCompatActivity {
         dialogTxt = (TextView) myDialog.findViewById(R.id.txt_declare);
         playAgain = (Button) myDialog.findViewById(R.id.button_again);
         exit = (Button) myDialog.findViewById(R.id.button_exit);
-        myDialog.show();
+        if (player == 1) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    myDialog.show();
+                }
+            }, 1500);
+        } else {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    myDialog.show();
+                }
+            }, 1000);
+        }
         if (winner == 0) {
             dialogTxt.setText("O wins!");
             isGameRunning = false;
@@ -1168,9 +1460,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void toggleActionBar() {
         if (turn == 0) {
-            actionBar.setTitle( "O Turn");
+            head.setText("O's Turn");
         } else {
-            actionBar.setTitle( "X Turn");
+            head.setText("X's Turn");
         }
     }
 }

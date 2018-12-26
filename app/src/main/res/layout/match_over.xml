@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="250dp"
     android:layout_height="300dp"
-    android:background="#4E342E">
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/txt_declare"
@@ -28,6 +28,9 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/btnshape"
         android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="Play Again"
         android:textColor="#fff"
         app:layout_constraintBottom_toTopOf="@+id/button_exit"
@@ -41,6 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginBottom="24dp"
         android:background="@drawable/btnshape"
         android:padding="16dp"

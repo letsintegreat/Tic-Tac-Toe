@@ -1,4 +1,4 @@
-package com.android.zlytherin.game.tic_tac_toe;
+package com.coolgame.zlytherin.game.tic_tac_toe;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.android.zlytherin.game.tic_tac_toe;
+package com.coolgame.zlytherin.game.tic_tac_toe;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
