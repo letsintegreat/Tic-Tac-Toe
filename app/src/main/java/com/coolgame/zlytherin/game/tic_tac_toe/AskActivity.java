@@ -16,6 +16,7 @@ public class AskActivity extends AppCompatActivity {
 
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
+        Button button4 = (Button) findViewById(R.id.button4);
         ImageView imageView = (ImageView) findViewById(R.id.back_image);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,14 @@ public class AskActivity extends AppCompatActivity {
                 bundle.putInt("MODE_TYPE", 2);
                 Intent main = new Intent(AskActivity.this, MainActivity.class);
                 main.putExtras(bundle);
+                startActivity(main);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent main = new Intent(AskActivity.this, MultiplayerActivity.class);
                 startActivity(main);
             }
         });

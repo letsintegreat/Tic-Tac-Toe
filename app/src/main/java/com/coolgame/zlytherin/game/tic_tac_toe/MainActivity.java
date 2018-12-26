@@ -16,16 +16,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean isGameRunning = true;
-    Handler handler;
-    ArrayList<Integer> userTurn = new ArrayList<>();
-    int varButton1 = 2, varButton2 = 2, varButton3 = 2, varButton4 = 2, varButton5 = 2,
+    private boolean isGameRunning = true;
+    private Handler handler;
+    private ArrayList<Integer> userTurn = new ArrayList<>();
+    private int varButton1 = 2, varButton2 = 2, varButton3 = 2, varButton4 = 2, varButton5 = 2,
             varButton6 = 2, varButton7 = 2, varButton8 = 2, varButton9 = 2, phase = 1,
             player, turn = 0, userTurnCount = 0;
-    Dialog myDialog, exitDialog;
-    TextView dialogTxt, head, exitDialogTxt;
-    Button playAgain, exit, exitDialogExit, exitDialogAgain;
-    ImageView viewForButton1, viewForButton2, viewForButton3, viewForButton4, viewForButton5,
+    private Dialog myDialog, exitDialog;
+    private TextView dialogTxt, head, exitDialogTxt;
+    private Button playAgain, exit, exitDialogExit, exitDialogAgain;
+    private ImageView viewForButton1, viewForButton2, viewForButton3, viewForButton4, viewForButton5,
             viewForButton6, viewForButton7, viewForButton8, viewForButton9, backImage;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -1458,7 +1458,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void toggleActionBar() {
+    private void toggleActionBar() {
         if (turn == 0) {
             head.setText("O's Turn");
         } else {
