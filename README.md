@@ -1,5 +1,5 @@
 # Tic-Tac-Toe
-Here is a cool looking Tic-Tac-Toe game for android designed with **XML** and coded in **Java** all done by [Zlytherin](https://github.com/Zlytherin).
+Here is a cool looking Tic-Tac-Toe game for android designed with **XML** and coded in **Java** all done by [Harshit](https://github.com/letsintegreat).
 
 Tic-Tac-Toe looks greatly amazing with satisfying animation to keep you engaging.
 
