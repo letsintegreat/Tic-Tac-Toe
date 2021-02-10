@@ -11,7 +11,7 @@ Tic-Tac-Toe looks greatly amazing with satisfying animation to keep you engaging
 ![](https://lh3.googleusercontent.com/vxmN49_J0h0ZZnsQmhEIOWvkl3arDZqsm11B1GW4N9H22BurwuU7poVRmenh5-c3UBg)
 
 Fanstatic, aren't they?   
-Screenshot designs are also created by me. Thanks to [Gravit Designer](https://www.designer.io)
+Screenshot designs are created by me. Thanks to [Gravit Designer](https://www.designer.io)
 
 In this Game, there is one player mode as well to get you covered if you are alone.  
 But Believe me, it's harder than you think, because your opponent is not a computer, that's me!  
