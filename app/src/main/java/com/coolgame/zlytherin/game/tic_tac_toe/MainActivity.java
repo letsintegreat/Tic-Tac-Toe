@@ -18,15 +18,23 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isGameRunning = true;
     private Handler handler;
-    private ArrayList<Integer> userTurn = new ArrayList<>();
+    private final ArrayList<Integer> userTurn = new ArrayList<>();
     private int varButton1 = 2, varButton2 = 2, varButton3 = 2, varButton4 = 2, varButton5 = 2,
             varButton6 = 2, varButton7 = 2, varButton8 = 2, varButton9 = 2, phase = 1,
             player, turn = 0, userTurnCount = 0;
     private Dialog myDialog, exitDialog;
-    private TextView dialogTxt, head, exitDialogTxt;
-    private Button playAgain, exit, exitDialogExit, exitDialogAgain;
-    private ImageView viewForButton1, viewForButton2, viewForButton3, viewForButton4, viewForButton5,
-            viewForButton6, viewForButton7, viewForButton8, viewForButton9, backImage;
+    private TextView head;
+    private Button exitDialogExit;
+    private Button exitDialogAgain;
+    private ImageView viewForButton1;
+    private ImageView viewForButton2;
+    private ImageView viewForButton3;
+    private ImageView viewForButton4;
+    private ImageView viewForButton5;
+    private ImageView viewForButton6;
+    private ImageView viewForButton7;
+    private ImageView viewForButton8;
+    private ImageView viewForButton9;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
         player = getIntent().getExtras().getInt("MODE_TYPE");
         handler = new Handler();
 
-        backImage = (ImageView) findViewById(R.id.back_image);
+        ImageView backImage = (ImageView) findViewById(R.id.back_image);
         exitDialog = new Dialog(this);
         exitDialog.setContentView(R.layout.match_over);
-        exitDialogTxt = exitDialog.findViewById(R.id.txt_declare);
+        TextView exitDialogTxt = exitDialog.findViewById(R.id.txt_declare);
         exitDialogAgain = exitDialog.findViewById(R.id.button_again);
         exitDialogExit = exitDialog.findViewById(R.id.button_exit);
         exitDialogTxt.setText("Are you sure?");
@@ -828,9 +836,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setWinner(int winner) {
         myDialog.setContentView(R.layout.match_over);
-        dialogTxt = (TextView) myDialog.findViewById(R.id.txt_declare);
-        playAgain = (Button) myDialog.findViewById(R.id.button_again);
-        exit = (Button) myDialog.findViewById(R.id.button_exit);
+        TextView dialogTxt = (TextView) myDialog.findViewById(R.id.txt_declare);
+        Button playAgain = (Button) myDialog.findViewById(R.id.button_again);
+        Button exit = (Button) myDialog.findViewById(R.id.button_exit);
         if (player == 1) {
             handler.postDelayed(new Runnable() {
                 @Override

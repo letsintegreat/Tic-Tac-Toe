@@ -10,7 +10,7 @@ Tic-Tac-Toe looks greatly amazing with satisfying animation to keep you engaging
 ![](https://lh3.googleusercontent.com/sQIhlzfPMSyDaHP1vgiVjeOvkcjKdapQ8DiQUBYMyKtXpQ6lekkixZoCr6ELJmRR4Wg)
 ![](https://lh3.googleusercontent.com/vxmN49_J0h0ZZnsQmhEIOWvkl3arDZqsm11B1GW4N9H22BurwuU7poVRmenh5-c3UBg)
 
-Fanstatic, aren't they?   
+Fantastic, aren't they?
 Screenshot designs are also created by me. Thanks to [Gravit Designer](https://www.designer.io)
 
 In this Game, there is one player mode as well to get you covered if you are alone.  
